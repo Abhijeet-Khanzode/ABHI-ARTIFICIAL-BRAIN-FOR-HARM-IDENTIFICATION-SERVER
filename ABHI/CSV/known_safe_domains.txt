@@ -58,6 +58,7 @@ freelancer.com
 geeksforgeeks.org
 gettyimages.com
 github.com
+git-scm.com
 glassdoor.com
 gmail.com
 godaddy.com
