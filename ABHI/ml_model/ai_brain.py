@@ -29,12 +29,17 @@ def generate_reply(question: str) -> str:
         chat_log = f.read()
 
     # Prepare prompt
-    prompt = f"{chat_log}\nYou: {question}\nABHI:"
+    # prompt = f"{chat_log}\nYou: {question}\nABHI:"
 
     try:
         response = client.chat.completions.create(
             model="gpt-4o-mini",   # ✅ Fast + cheap model
-            messages=[{"role": "user", "content": prompt}],
+            # messages=[{"role": "user", "content": prompt}],
+            messages=[
+                # {"role": "user", "content": prompt}
+                {"role": "system", "content": "You are ABHI, a professional Cybersecurity Assistant. Always give short, complete, security-focused answers with step-by-step guidance. Use bullet points where needed, but keep answers crisp (around 120 words)."},
+                {"role": "user", "content": f"{chat_log}\nYou: {question}\nABHI:"}
+                      ],
             temperature=0.5,
             max_tokens=100,
             top_p=0.8,
