@@ -327,7 +327,7 @@ def check_url():
         path = parsed.path.lower()
 
         # ⛔ Ignore browser or localhost URLs
-        if parsed.scheme.startswith("chrome") or "localhost" in domain:
+        if parsed.scheme.startswith("chrome") in domain:
             return jsonify({"isPhishing": False, "confidence": 0.0})
 
         # ✅ Bypass known safe domains that are just browsing (no login keywords)
