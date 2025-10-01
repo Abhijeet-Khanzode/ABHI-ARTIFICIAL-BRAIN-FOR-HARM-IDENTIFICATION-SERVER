@@ -56,7 +56,7 @@ init_db()
 
 @app.route("/", methods=["GET"])
 def home():
-    return render_template("app.html") 
+    return send_file(os.path.join(os.path.dirname(__file__), "app.html"))
 
 # def home():
 #     return """
