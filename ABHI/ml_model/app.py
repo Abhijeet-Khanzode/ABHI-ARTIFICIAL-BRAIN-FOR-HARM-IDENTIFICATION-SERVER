@@ -56,267 +56,270 @@ init_db()
 
 @app.route("/", methods=["GET"])
 def home():
-    return """
-   <!DOCTYPE html>
-<html lang="en">
+    return render_template("app.html") 
 
-<head>
-  <meta charset="UTF-8">
-  <title>ABHI - Artificial Brain for Harm Identification | Coming Soon</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+# def home():
+#     return """
+#    <!DOCTYPE html>
+# <html lang="en">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+# <head>
+#   <meta charset="UTF-8">
+#   <title>ABHI - Artificial Brain for Harm Identification | Coming Soon</title>
+#   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+#   <!-- Google Fonts -->
+#   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-    body {
-      font-family: 'Share Tech Mono', monospace;
-      background: radial-gradient(circle at center, #020202, #000814, #0f0f0f);
-      color: #00fff7;
-      overflow-x: hidden;
-      padding: 20px;
-    }
+#   <style>
+#     * {
+#       margin: 0;
+#       padding: 0;
+#       box-sizing: border-box;
+#     }
 
-    .scanlines {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(to bottom,
-          rgba(0, 0, 0, 0.15),
-          rgba(0, 0, 0, 0.15) 2px,
-          transparent 2px,
-          transparent 4px);
-      pointer-events: none;
-      z-index: 999;
-    }
+#     body {
+#       font-family: 'Share Tech Mono', monospace;
+#       background: radial-gradient(circle at center, #020202, #000814, #0f0f0f);
+#       color: #00fff7;
+#       overflow-x: hidden;
+#       padding: 20px;
+#     }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
+#     .scanlines {
+#       position: fixed;
+#       top: 0;
+#       left: 0;
+#       width: 100%;
+#       height: 100%;
+#       background: repeating-linear-gradient(to bottom,
+#           rgba(0, 0, 0, 0.15),
+#           rgba(0, 0, 0, 0.15) 2px,
+#           transparent 2px,
+#           transparent 4px);
+#       pointer-events: none;
+#       z-index: 999;
+#     }
 
-    .cyber-border {
-      border: 2px solid #00fff7;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 30px;
-      box-shadow: 0 0 15px #00fff7, 0 0 40px #ff00de;
-      animation: pulse 3s infinite;
-      text-align: center;
-    }
+#     .container {
+#       display: flex;
+#       flex-direction: column;
+#       align-items: center;
+#       justify-content: center;
+#     }
 
-    @keyframes pulse {
-      0% {
-        box-shadow: 0 0 10px #00fff7, 0 0 20px #ff00de;
-      }
+#     .cyber-border {
+#       border: 2px solid #00fff7;
+#       border-radius: 12px;
+#       padding: 20px;
+#       margin-bottom: 30px;
+#       box-shadow: 0 0 15px #00fff7, 0 0 40px #ff00de;
+#       animation: pulse 3s infinite;
+#       text-align: center;
+#     }
 
-      50% {
-        box-shadow: 0 0 30px #ff00de, 0 0 60px #00fff7;
-      }
+#     @keyframes pulse {
+#       0% {
+#         box-shadow: 0 0 10px #00fff7, 0 0 20px #ff00de;
+#       }
 
-      100% {
-        box-shadow: 0 0 10px #00fff7, 0 0 20px #ff00de;
-      }
-    }
+#       50% {
+#         box-shadow: 0 0 30px #ff00de, 0 0 60px #00fff7;
+#       }
 
-    .logo {
-      font-family: monospace;
-      white-space: pre;
-      font-size: 14px;
-      color: #00FF00;
-      margin-bottom: 20px;
-      text-align: center;
-      animation: float 4s ease-in-out infinite;
-    }
+#       100% {
+#         box-shadow: 0 0 10px #00fff7, 0 0 20px #ff00de;
+#       }
+#     }
 
-    @keyframes float {
+#     .logo {
+#       font-family: monospace;
+#       white-space: pre;
+#       font-size: 14px;
+#       color: #00FF00;
+#       margin-bottom: 20px;
+#       text-align: center;
+#       animation: float 4s ease-in-out infinite;
+#     }
 
-      0%,
-      100% {
-        transform: translateY(0px) rotateY(0deg);
-      }
+#     @keyframes float {
 
-      50% {
-        transform: translateY(-10px) rotateY(10deg);
-      }
-    }
+#       0%,
+#       100% {
+#         transform: translateY(0px) rotateY(0deg);
+#       }
 
-    h1 {
-      color: #00ffcc;
-      margin-bottom: 15px;
-    }
+#       50% {
+#         transform: translateY(-10px) rotateY(10deg);
+#       }
+#     }
 
-    h2 {
-      color: #ff00de;
-      margin-top: 20px;
-    }
+#     h1 {
+#       color: #00ffcc;
+#       margin-bottom: 15px;
+#     }
 
-    p,
-    li,
-    ol {
-      color: #00fff7;
-      margin: 10px 0;
-    }
+#     h2 {
+#       color: #ff00de;
+#       margin-top: 20px;
+#     }
 
-    a {
-      color: #00ffcc;
-      text-decoration: none;
-      font-weight: bold;
-    }
+#     p,
+#     li,
+#     ol {
+#       color: #00fff7;
+#       margin: 10px 0;
+#     }
 
-    a:hover {
-      text-decoration: underline;
-    }
+#     a {
+#       color: #00ffcc;
+#       text-decoration: none;
+#       font-weight: bold;
+#     }
 
-    .card {
-      background: #1e1e1e;
-      border-radius: 15px;
-      padding: 20px;
-      max-width: 700px;
-      box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
-      text-align: left;
-      margin-bottom: 40px;
-    }
+#     a:hover {
+#       text-decoration: underline;
+#     }
 
-    .glitch {
-      font-size: 3rem;
-      letter-spacing: 3px;
-      animation: flicker 2s infinite;
-      text-shadow:
-        0 0 5px #00f7ff,
-        0 0 10px #00f7ff,
-        0 0 20px #ff00de,
-        0 0 40px #ff00de;
-      margin-bottom: 15px;
-    }
+#     .card {
+#       background: #1e1e1e;
+#       border-radius: 15px;
+#       padding: 20px;
+#       max-width: 700px;
+#       box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+#       text-align: left;
+#       margin-bottom: 40px;
+#     }
 
-    @keyframes flicker {
+#     .glitch {
+#       font-size: 3rem;
+#       letter-spacing: 3px;
+#       animation: flicker 2s infinite;
+#       text-shadow:
+#         0 0 5px #00f7ff,
+#         0 0 10px #00f7ff,
+#         0 0 20px #ff00de,
+#         0 0 40px #ff00de;
+#       margin-bottom: 15px;
+#     }
 
-      0%,
-      18%,
-      22%,
-      25%,
-      53%,
-      57%,
-      100% {
-        opacity: 1;
-      }
+#     @keyframes flicker {
 
-      20%,
-      24%,
-      55% {
-        opacity: 0.4;
-      }
-    }
+#       0%,
+#       18%,
+#       22%,
+#       25%,
+#       53%,
+#       57%,
+#       100% {
+#         opacity: 1;
+#       }
 
-    .countdown {
-      font-size: 1.5rem;
-      color: #ff00de;
-      text-shadow: 0 0 10px #00f7ff;
-      margin-bottom: 30px;
-    }
-  </style>
-</head>
+#       20%,
+#       24%,
+#       55% {
+#         opacity: 0.4;
+#       }
+#     }
 
-<body>
-  <div class="scanlines"></div>
-  <div class="container">
-    <!-- Cyberpunk Coming Soon Section -->
-    <div class="cyber-border">
-      <h1 class="glitch">A.B.H.I.</h1>
-      <p class="countdown" id="countdown">Loading...</p>
-    </div>
+#     .countdown {
+#       font-size: 1.5rem;
+#       color: #ff00de;
+#       text-shadow: 0 0 10px #00f7ff;
+#       margin-bottom: 30px;
+#     }
+#   </style>
+# </head>
 
-    <!-- ABHI Extension Info Card -->
-    <div class="card">
-      <div class="logo">
-        ░█████╗░██████╗░██╗░░██╗██╗
-        ██╔══██╗██╔══██╗██║░░██║██║
-        ███████║██████╦╝███████║██║
-        ██╔══██║██╔══██╗██╔══██║██║
-        ██║░░██║██████╦╝██║░░██║██║
-        ╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝╚═╝
-        (Artificial Brain for Harm Identification)
-      </div>
+# <body>
+#   <div class="scanlines"></div>
+#   <div class="container">
+#     <!-- Cyberpunk Coming Soon Section -->
+#     <div class="cyber-border">
+#       <h1 class="glitch">A.B.H.I.</h1>
+#       <p class="countdown" id="countdown">Loading...</p>
+#     </div>
 
-      <h1>About the Extension</h1>
-      <p>
-        This browser extension helps in detecting harmful and phishing content online
-        using our AI-powered and machine learning technology Artificial Brain for Harm Identification.
-      </p>
+#     <!-- ABHI Extension Info Card -->
+#     <div class="card">
+#       <div class="logo">
+#         ░█████╗░██████╗░██╗░░██╗██╗
+#         ██╔══██╗██╔══██╗██║░░██║██║
+#         ███████║██████╦╝███████║██║
+#         ██╔══██║██╔══██╗██╔══██║██║
+#         ██║░░██║██████╦╝██║░░██║██║
+#         ╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝╚═╝
+#         (Artificial Brain for Harm Identification)
+#       </div>
 
-      <h2>🚀 Features</h2>
-      <ul>
-        <li>Phishing website detection</li>
-        <li>Content analysis & warnings</li>
-        <li>Human + AI double review</li>
-        <li>Automatic email alerts</li>
-      </ul>
+#       <h1>About the Extension</h1>
+#       <p>
+#         This browser extension helps in detecting harmful and phishing content online
+#         using our AI-powered and machine learning technology Artificial Brain for Harm Identification.
+#       </p>
 
-      <h2>📥 Download & Install</h2>
-      <ol>
-        <li>Download from <a
-            href="https://github.com/Abhijeet-Khanzode/ABHI-ARTIFICIAL-BRAIN-FOR-HARM-IDENTIFICATION-CLIENT">GitHub
-            Repository</a></li>
-        <li>Go to <b>chrome://extensions</b> in Chrome</li>
-        <li>Enable <b>Developer Mode</b></li>
-        <li>Click <b>Load Unpacked</b> and select extension folder</li>
-        <li>Done ✅, extension will be active</li>
-      </ol>
+#       <h2>🚀 Features</h2>
+#       <ul>
+#         <li>Phishing website detection</li>
+#         <li>Content analysis & warnings</li>
+#         <li>Human + AI double review</li>
+#         <li>Automatic email alerts</li>
+#       </ul>
 
-      <h2>📖 Usage</h2>
-      <p>
-        Once installed, the extension scans websites automatically and shows warnings if suspicious activity is
-        detected.
-        You can also submit suspicious URLs for manual review.
-      </p>
+#       <h2>📥 Download & Install</h2>
+#       <ol>
+#         <li>Download from <a
+#             href="https://github.com/Abhijeet-Khanzode/ABHI-ARTIFICIAL-BRAIN-FOR-HARM-IDENTIFICATION-CLIENT">GitHub
+#             Repository</a></li>
+#         <li>Go to <b>chrome://extensions</b> in Chrome</li>
+#         <li>Enable <b>Developer Mode</b></li>
+#         <li>Click <b>Load Unpacked</b> and select extension folder</li>
+#         <li>Done ✅, extension will be active</li>
+#       </ol>
 
-      <h2>👨‍💻 Developer</h2>
-      <p>Created by <b>@ABHIJEET, @PARTH & @AYUSH</b><br>
-        <a href="http://github.com/Abhijeet-Khanzode">GitHub Profile</a>
-      </p>
-    </div>
-  </div>
+#       <h2>📖 Usage</h2>
+#       <p>
+#         Once installed, the extension scans websites automatically and shows warnings if suspicious activity is
+#         detected.
+#         You can also submit suspicious URLs for manual review.
+#       </p>
 
-  <script>
-    // Countdown (30 days example)
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 30);
+#       <h2>👨‍💻 Developer</h2>
+#       <p>Created by <b>@ABHIJEET, @PARTH & @AYUSH</b><br>
+#         <a href="http://github.com/Abhijeet-Khanzode">GitHub Profile</a>
+#       </p>
+#     </div>
+#   </div>
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+#   <script>
+#     // Countdown (30 days example)
+#     const targetDate = new Date();
+#     targetDate.setDate(targetDate.getDate() + 30);
 
-      if (distance < 0) {
-        document.getElementById("countdown").innerHTML = "We Are Live!";
-        return;
-      }
+#     function updateCountdown() {
+#       const now = new Date().getTime();
+#       const distance = targetDate - now;
+
+#       if (distance < 0) {
+#         document.getElementById("countdown").innerHTML = "We Are Live!";
+#         return;
+#       }
 
       
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+#       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+#       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+#       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      document.getElementById("countdown").innerHTML =
-        `${hours}h ${minutes}m ${seconds}s`;
-    }
+#       document.getElementById("countdown").innerHTML =
+#         `${hours}h ${minutes}m ${seconds}s`;
+#     }
 
-    setInterval(updateCountdown, 1000);
-  </script>
-</body>
+#     setInterval(updateCountdown, 1000);
+#   </script>
+# </body>
 
-</html>
-    """
+# </html>
+#     """
 @app.route("/check", methods=["POST"])
 def check_url():
     try:
