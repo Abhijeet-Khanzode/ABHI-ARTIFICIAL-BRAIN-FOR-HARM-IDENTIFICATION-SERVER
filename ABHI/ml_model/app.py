@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify,render_template,send_file
+from flask import Flask, request, jsonify,send_file,render_template
 from flask_cors import CORS
 import joblib
 import pandas as pd
@@ -56,7 +56,7 @@ init_db()
 
 @app.route("/", methods=["GET"])
 def home():
-    return send_file(os.path.join(os.path.dirname(__file__), "app.html"))
+    return render_template("app.html")
 
 # def home():
 #     return """

@@ -232,7 +232,8 @@
         <br>
         <div style="text-align:center; margin-bottom:30px;">
             <video width="600" controls style="border-radius:12px; box-shadow:0 0 15px #00fff7;">
-                <source src="DEMO/DEMO.mp4" type="video/mp4">
+                <!-- <source src="DEMO/DEMO.mp4" type="video/mp4"> -->
+                <source src="{{ url_for('static', filename='DEMO/DEMO.mp4') }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <p style="margin-top:10px; color:#ff00de;">Watch this demo to understand how ABHI works in real time.</p>
@@ -242,25 +243,26 @@
         <div style="display:flex; flex-direction:column; gap:20px;">
             <br>
             <div>
-                <img src="DEMO/DEMO-1.jpg" alt="Step 1" width="600"
+
+                <img src="{{ url_for('static', filename='images/DEMO-1.jpg') }}" alt="Step 1" width="600"
                     style="border-radius:12px; box-shadow:0 0 15px rgba(0,255,0,0.5);">
                 <p>Step 1: Download the extension from GitHub Repository.</p>
             </div>
             <br>
             <div>
-                <img src="DEMO/DEMO-2.jpg" alt="Step 2" width="600"
+                <img src="{{ url_for('static', filename='images/DEMO-2.jpg') }}" alt="Step 2" width="600"
                     style="border-radius:12px; box-shadow:0 0 15px rgba(0,255,0,0.5);">
                 <p>Step 2: Go to <b>chrome://extensions</b> and enable Developer Mode.</p>
             </div>
             <br>
             <div>
-                <img src="DEMO/DEMO-3.jpg" alt="Step 3" width="600"
+                <img src="{{ url_for('static', filename='images/DEMO-3.jpg') }}" alt="Step 3" width="600"
                     style="border-radius:12px; box-shadow:0 0 15px rgba(0,255,0,0.5);">
                 <p>Step 3: Click Load Unpacked and select the extension folder.</p>
             </div>
             <br>
             <div>
-                <img src="DEMO/DEMO-4.jpg" alt="Step 4" width="600"
+                <img src="{{ url_for('static', filename='images/DEMO-4.jpg') }}" alt="Step 4" width="600"
                     style="border-radius:12px; box-shadow:0 0 15px rgba(0,255,0,0.5);">
                 <p>Step 4: Extension will be active ✅ and ready to protect you.</p>
             </div>
