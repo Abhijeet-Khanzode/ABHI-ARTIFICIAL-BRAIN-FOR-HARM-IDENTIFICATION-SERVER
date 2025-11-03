@@ -16,6 +16,8 @@ from waitress import serve
 import os
 import xgboost as xgb
 from db import init_db, insert_feedback_review, insert_review
+import threading
+import traceback
 
 print(Fore.GREEN,Fore.RED+""" 
 
@@ -58,268 +60,6 @@ init_db()
 def home():
     return render_template("app.html")
 
-# def home():
-#     return """
-#    <!DOCTYPE html>
-# <html lang="en">
-
-# <head>
-#   <meta charset="UTF-8">
-#   <title>ABHI - Artificial Brain for Harm Identification | Coming Soon</title>
-#   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-#   <!-- Google Fonts -->
-#   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
-#   <style>
-#     * {
-#       margin: 0;
-#       padding: 0;
-#       box-sizing: border-box;
-#     }
-
-#     body {
-#       font-family: 'Share Tech Mono', monospace;
-#       background: radial-gradient(circle at center, #020202, #000814, #0f0f0f);
-#       color: #00fff7;
-#       overflow-x: hidden;
-#       padding: 20px;
-#     }
-
-#     .scanlines {
-#       position: fixed;
-#       top: 0;
-#       left: 0;
-#       width: 100%;
-#       height: 100%;
-#       background: repeating-linear-gradient(to bottom,
-#           rgba(0, 0, 0, 0.15),
-#           rgba(0, 0, 0, 0.15) 2px,
-#           transparent 2px,
-#           transparent 4px);
-#       pointer-events: none;
-#       z-index: 999;
-#     }
-
-#     .container {
-#       display: flex;
-#       flex-direction: column;
-#       align-items: center;
-#       justify-content: center;
-#     }
-
-#     .cyber-border {
-#       border: 2px solid #00fff7;
-#       border-radius: 12px;
-#       padding: 20px;
-#       margin-bottom: 30px;
-#       box-shadow: 0 0 15px #00fff7, 0 0 40px #ff00de;
-#       animation: pulse 3s infinite;
-#       text-align: center;
-#     }
-
-#     @keyframes pulse {
-#       0% {
-#         box-shadow: 0 0 10px #00fff7, 0 0 20px #ff00de;
-#       }
-
-#       50% {
-#         box-shadow: 0 0 30px #ff00de, 0 0 60px #00fff7;
-#       }
-
-#       100% {
-#         box-shadow: 0 0 10px #00fff7, 0 0 20px #ff00de;
-#       }
-#     }
-
-#     .logo {
-#       font-family: monospace;
-#       white-space: pre;
-#       font-size: 14px;
-#       color: #00FF00;
-#       margin-bottom: 20px;
-#       text-align: center;
-#       animation: float 4s ease-in-out infinite;
-#     }
-
-#     @keyframes float {
-
-#       0%,
-#       100% {
-#         transform: translateY(0px) rotateY(0deg);
-#       }
-
-#       50% {
-#         transform: translateY(-10px) rotateY(10deg);
-#       }
-#     }
-
-#     h1 {
-#       color: #00ffcc;
-#       margin-bottom: 15px;
-#     }
-
-#     h2 {
-#       color: #ff00de;
-#       margin-top: 20px;
-#     }
-
-#     p,
-#     li,
-#     ol {
-#       color: #00fff7;
-#       margin: 10px 0;
-#     }
-
-#     a {
-#       color: #00ffcc;
-#       text-decoration: none;
-#       font-weight: bold;
-#     }
-
-#     a:hover {
-#       text-decoration: underline;
-#     }
-
-#     .card {
-#       background: #1e1e1e;
-#       border-radius: 15px;
-#       padding: 20px;
-#       max-width: 700px;
-#       box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
-#       text-align: left;
-#       margin-bottom: 40px;
-#     }
-
-#     .glitch {
-#       font-size: 3rem;
-#       letter-spacing: 3px;
-#       animation: flicker 2s infinite;
-#       text-shadow:
-#         0 0 5px #00f7ff,
-#         0 0 10px #00f7ff,
-#         0 0 20px #ff00de,
-#         0 0 40px #ff00de;
-#       margin-bottom: 15px;
-#     }
-
-#     @keyframes flicker {
-
-#       0%,
-#       18%,
-#       22%,
-#       25%,
-#       53%,
-#       57%,
-#       100% {
-#         opacity: 1;
-#       }
-
-#       20%,
-#       24%,
-#       55% {
-#         opacity: 0.4;
-#       }
-#     }
-
-#     .countdown {
-#       font-size: 1.5rem;
-#       color: #ff00de;
-#       text-shadow: 0 0 10px #00f7ff;
-#       margin-bottom: 30px;
-#     }
-#   </style>
-# </head>
-
-# <body>
-#   <div class="scanlines"></div>
-#   <div class="container">
-#     <!-- Cyberpunk Coming Soon Section -->
-#     <div class="cyber-border">
-#       <h1 class="glitch">A.B.H.I.</h1>
-#       <p class="countdown" id="countdown">Loading...</p>
-#     </div>
-
-#     <!-- ABHI Extension Info Card -->
-#     <div class="card">
-#       <div class="logo">
-#         ░█████╗░██████╗░██╗░░██╗██╗
-#         ██╔══██╗██╔══██╗██║░░██║██║
-#         ███████║██████╦╝███████║██║
-#         ██╔══██║██╔══██╗██╔══██║██║
-#         ██║░░██║██████╦╝██║░░██║██║
-#         ╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝╚═╝
-#         (Artificial Brain for Harm Identification)
-#       </div>
-
-#       <h1>About the Extension</h1>
-#       <p>
-#         This browser extension helps in detecting harmful and phishing content online
-#         using our AI-powered and machine learning technology Artificial Brain for Harm Identification.
-#       </p>
-
-#       <h2>🚀 Features</h2>
-#       <ul>
-#         <li>Phishing website detection</li>
-#         <li>Content analysis & warnings</li>
-#         <li>Human + AI double review</li>
-#         <li>Automatic email alerts</li>
-#       </ul>
-
-#       <h2>📥 Download & Install</h2>
-#       <ol>
-#         <li>Download from <a
-#             href="https://github.com/Abhijeet-Khanzode/ABHI-ARTIFICIAL-BRAIN-FOR-HARM-IDENTIFICATION-CLIENT">GitHub
-#             Repository</a></li>
-#         <li>Go to <b>chrome://extensions</b> in Chrome</li>
-#         <li>Enable <b>Developer Mode</b></li>
-#         <li>Click <b>Load Unpacked</b> and select extension folder</li>
-#         <li>Done ✅, extension will be active</li>
-#       </ol>
-
-#       <h2>📖 Usage</h2>
-#       <p>
-#         Once installed, the extension scans websites automatically and shows warnings if suspicious activity is
-#         detected.
-#         You can also submit suspicious URLs for manual review.
-#       </p>
-
-#       <h2>👨‍💻 Developer</h2>
-#       <p>Created by <b>@ABHIJEET, @PARTH & @AYUSH</b><br>
-#         <a href="http://github.com/Abhijeet-Khanzode">GitHub Profile</a>
-#       </p>
-#     </div>
-#   </div>
-
-#   <script>
-#     // Countdown (30 days example)
-#     const targetDate = new Date();
-#     targetDate.setDate(targetDate.getDate() + 30);
-
-#     function updateCountdown() {
-#       const now = new Date().getTime();
-#       const distance = targetDate - now;
-
-#       if (distance < 0) {
-#         document.getElementById("countdown").innerHTML = "We Are Live!";
-#         return;
-#       }
-
-      
-#       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-#       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-#       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-#       document.getElementById("countdown").innerHTML =
-#         `${hours}h ${minutes}m ${seconds}s`;
-#     }
-
-#     setInterval(updateCountdown, 1000);
-#   </script>
-# </body>
-
-# </html>
-#     """
 @app.route("/check", methods=["POST"])
 def check_url():
     try:
@@ -362,6 +102,7 @@ def check_url():
     except Exception as e:
         return jsonify({"isPhishing": False, "error": str(e)}), 500
     
+
 # @app.route("/feedback-review", methods=["POST"])
 # def review_feedback():
 #     data = request.get_json()
@@ -374,43 +115,53 @@ def check_url():
 #     issue = data.get("issue", "N/A")
 
 #     try:
-#         with open("ABHI/DATA/feedbackreview.txt", "a", encoding="utf-8") as f:
-#             f.write(f"📝 Feedback Received:\n")
-#             f.write(f"Name  : {name}\n")
-#             f.write(f"Email : {email}\n")
-#             f.write(f"URL   : {url}\n")
-#             f.write(f"Issue : {issue}\n")
-#             f.write(f"{'-'*40}\n")    
-            
+#         # ✅ DB me save karna
+#         insert_feedback_review(name, email, url, issue)
+
+#         # ✅ Email bhejna
 #         send_thank_you_email(email, name, url)
-        
-#         return jsonify({"status": "success", "message": "Feedback recevied email sent"}), 200
+
+#         return jsonify({"status": "success", "message": "Feedback received & email sent"}), 200
 
 #     except Exception as e:
 #         return jsonify({"status": "error", "message": str(e)}), 500
 
+def send_async_email(func, *args, **kwargs):
+    """Run email function in a background thread."""
+    thread = threading.Thread(target=func, args=args, kwargs=kwargs)
+    thread.daemon = True   # thread auto-closes when main app stops
+    thread.start()
+
+
 @app.route("/feedback-review", methods=["POST"])
 def review_feedback():
-    data = request.get_json()
-    if not data:
-        return jsonify({"status": "error", "message": "No data provided"}), 400
-
-    name = data.get("name", "N/A")
-    email = data.get("email", "N/A")
-    url = data.get("url", "N/A")
-    issue = data.get("issue", "N/A")
-
     try:
-        # ✅ DB me save karna
+        data = request.get_json()
+        if not data:
+            return jsonify({"status": "error", "message": "No data provided"}), 400
+
+        name = data.get("name", "N/A")
+        email = data.get("email", "N/A")
+        url = data.get("url", "N/A")
+        issue = data.get("issue", "N/A")
+
+        # ✅ Step 1: Save to DB
         insert_feedback_review(name, email, url, issue)
 
-        # ✅ Email bhejna
-        send_thank_you_email(email, name, url)
+        # ✅ Step 2: Send email in background (non-blocking)
+        send_async_email(send_thank_you_email, email, name, url)
 
-        return jsonify({"status": "success", "message": "Feedback received & email sent"}), 200
+        return jsonify({
+            "status": "success",
+            "message": "Feedback received successfully! Email is being sent in background."
+        }), 200
 
     except Exception as e:
+        print("❌ Error in /feedback-review route:", traceback.format_exc())
         return jsonify({"status": "error", "message": str(e)}), 500
+
+
+
 
 # @app.route('/feedback', methods=['POST'])
 # def feedback():
