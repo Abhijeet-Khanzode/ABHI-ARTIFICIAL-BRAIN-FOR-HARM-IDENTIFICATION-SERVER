@@ -96,10 +96,11 @@
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import os
 
 # ✅ Your verified sender details
 SENDER_EMAIL = "abhi.s.khanzode@gmail.com"
-SENDGRID_API_KEY = "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"
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
 
 SMTP_SERVER = "smtp.sendgrid.net"
 SMTP_PORT = 587
