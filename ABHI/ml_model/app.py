@@ -54,7 +54,7 @@ def load_false_positives(path="ABHI/CSV/false_positive.csv"):
 
 FALSE_POSITIVES = load_false_positives()
 
-init_db()
+# init_db()
 
 @app.route("/", methods=["GET"])
 def home():
