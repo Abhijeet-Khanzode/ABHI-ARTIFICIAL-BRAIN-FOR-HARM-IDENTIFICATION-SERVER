@@ -15,7 +15,7 @@ from email_send import send_thank_you_email
 from waitress import serve
 import os
 import xgboost as xgb
-from db import init_db, insert_feedback_review, insert_review
+# from db import init_db, insert_feedback_review, insert_review
 import threading
 import traceback
 
