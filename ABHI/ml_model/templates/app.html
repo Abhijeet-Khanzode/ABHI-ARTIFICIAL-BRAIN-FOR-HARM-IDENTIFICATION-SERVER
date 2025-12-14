@@ -166,17 +166,42 @@
             text-shadow: 0 0 10px #00f7ff;
             margin-bottom: 30px;
         }
+
+        .technical-notice {
+            background: rgba(255, 0, 222, 0.2);
+            border: 2px solid #ff00de;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 20px auto;
+            max-width: 900px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(255, 0, 222, 0.5);
+            animation: pulse 2s infinite;
+            z-index: 1000;
+            position: relative;
+        }
+
+        .technical-notice p {
+            color: #ff00de;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 0;
+            text-shadow: 0 0 10px #ff00de;
+        }
     </style>
 </head>
 
 <body>
+    <div class="technical-notice">
+        <p>⚠️ NOTICE: This application is under construction. Some functions may not be working properly. ⚠️</p>
+    </div>
     <div class="scanlines"></div>
     <div class="container">
         <!-- Cyberpunk Coming Soon Section -->
         <div class="cyber-border">
             <h1 class="glitch">A.B.H.I.</h1>
             <!-- <p class="countdown" id="countdown">Loading...</p> -->
-            <p>We Are Live....</p>
+            <p>We Are Under Construction...</p>
         </div>
 
         <!-- ABHI Extension Info Card -->
