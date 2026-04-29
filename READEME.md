@@ -86,6 +86,8 @@ https://lastminute-dealzclose.shop/livesale/ProductManager/202?fbclid=PAQ0xDSwKM
 
 👨‍💻 Developer Info
 👤 Abhijeet Khanzode
+👤 Parth Dhande
+👤 Ayush Bangare
 B.Tech Computer Science (Cybersecurity)
 📍 Nagpur, Maharashtra
 🎓 G.H. Raisoni College Of Engineering And Management, Nagpur.
